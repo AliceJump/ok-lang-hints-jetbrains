@@ -1,0 +1,63 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "2.1.10"
+    id("org.jetbrains.intellij.platform") version "2.18.1"
+}
+
+group = providers.gradleProperty("pluginGroup").get()
+version = providers.gradleProperty("pluginVersion").get()
+
+repositories {
+    mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+dependencies {
+    intellijPlatform {
+        val localPath = providers.gradleProperty("platformLocalPath").orNull
+        if (!localPath.isNullOrBlank() && file(localPath).resolve("product-info.json").exists()) {
+            local(localPath)
+        } else {
+            pycharm(providers.gradleProperty("platformVersion").get())
+            bundledPlugin("PythonCore")
+        }
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+    }
+    testImplementation(kotlin("test"))
+    testImplementation("junit:junit:4.13.2")
+}
+
+kotlin {
+    jvmToolchain(21)
+}
+
+tasks {
+    test {
+        useJUnitPlatform()
+    }
+}
+
+intellijPlatform {
+    autoReload = true
+    buildSearchableOptions = false
+
+    pluginConfiguration {
+        id = providers.gradleProperty("pluginGroup")
+        name = providers.gradleProperty("pluginName")
+        version = providers.gradleProperty("pluginVersion")
+        description = """
+            JetBrains Platform support for ok-script projects. Provides language-key,
+            OCR pattern, template and effect-ID completion, documentation, inline hints,
+            and a searchable template gallery for Python projects.
+        """.trimIndent()
+        ideaVersion {
+            sinceBuild = "251"
+            untilBuild = provider { null }
+        }
+        vendor {
+            name = "AliceJump"
+            url = "https://github.com/AliceJump/ok-lang-hints"
+        }
+    }
+}
