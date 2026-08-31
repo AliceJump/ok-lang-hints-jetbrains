@@ -2,7 +2,7 @@
 
 JetBrains Platform/PyCharm port of the VS Code extension in the repository root.
 
-## Implemented in this first version
+## Implemented features
 
 - `self.lang.<module>.<key>` completion and quick documentation.
 - OCR `match` completion/documentation from `ocr.po`.
@@ -21,5 +21,12 @@ Use the bundled Wrapper from this directory:
 
 The plugin ZIP is written to `build/distributions/`.
 
-By default the build uses `D:/IDE/PyCharm` when present. Remove or override
-`platformLocalPath` in `gradle.properties` to download the configured PyCharm version.
+The default build downloads the configured PyCharm SDK. To reuse a local installation,
+pass `-PplatformLocalPath=/absolute/path/to/PyCharm` and run Gradle with JDK 21.
+
+## Releases
+
+The repository root project is the single release coordinator. The version in this
+repository must match the parent `package.json`, and only a new `vX.Y.Z` tag pushed to
+`AliceJump/ok-lang-hints` publishes both the VS Code and JetBrains distributions.
+This repository's own CI validates source changes but does not publish releases.

@@ -57,7 +57,19 @@ intellijPlatform {
         }
         vendor {
             name = "AliceJump"
-            url = "https://github.com/AliceJump/ok-lang-hints"
+            url = "https://github.com/AliceJump/ok-lang-hints-jetbrains"
+        }
+    }
+
+    signing {
+        privateKey = providers.environmentVariable("PRIVATE_KEY")
+        password = providers.environmentVariable("PRIVATE_KEY_PASSWORD")
+        certificateChain = providers.environmentVariable("CERTIFICATE_CHAIN")
+    }
+
+    pluginVerification {
+        ides {
+            current()
         }
     }
 }
