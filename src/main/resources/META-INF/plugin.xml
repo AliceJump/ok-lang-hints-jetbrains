@@ -1,0 +1,62 @@
+<idea-plugin>
+    <id>com.alicejump.oklanghints</id>
+    <name>ok-script Lang Hints</name>
+    <vendor url="https://github.com/AliceJump/ok-lang-hints">AliceJump</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.python</depends>
+    <depends>com.intellij.modules.json</depends>
+
+    <resource-bundle>messages.OkLangHintsBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable
+            parentId="tools"
+            instance="com.alicejump.oklanghints.settings.OkLangHintsConfigurable"
+            id="com.alicejump.oklanghints.settings"
+            displayName="ok-script Lang Hints"/>
+
+        <completion.contributor
+            language="Python"
+            implementationClass="com.alicejump.oklanghints.editor.OkPythonCompletionContributor"/>
+        <completion.contributor
+            language="JSON"
+            implementationClass="com.alicejump.oklanghints.editor.OkJsonCompletionContributor"/>
+
+        <documentationProvider implementationClass="com.alicejump.oklanghints.editor.OkDocumentationProvider"/>
+
+        <codeInsight.declarativeInlayProvider
+            language="Python"
+            providerId="ok.lang.hints.python"
+            name="ok-script Lang Hints"
+            implementationClass="com.alicejump.oklanghints.editor.OkInlayHintsProvider"/>
+        <codeInsight.declarativeInlayProvider
+            language="JSON"
+            providerId="ok.lang.hints.json"
+            name="ok-script Effect Hints"
+            implementationClass="com.alicejump.oklanghints.editor.OkInlayHintsProvider"/>
+
+        <toolWindow
+            id="ok-script Templates"
+            anchor="right"
+            factoryClass="com.alicejump.oklanghints.ui.TemplatesToolWindowFactory"/>
+
+        <notificationGroup
+            id="okLangHints"
+            displayType="BALLOON"
+            isLogByDefault="true"/>
+    </extensions>
+
+    <actions>
+        <action
+            id="com.alicejump.oklanghints.ShowTemplates"
+            class="com.alicejump.oklanghints.ui.ShowTemplatesAction"
+            text="Show ok-script Templates"
+            description="Open the ok-script template gallery">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="control alt T"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt T"/>
+        </action>
+    </actions>
+</idea-plugin>
