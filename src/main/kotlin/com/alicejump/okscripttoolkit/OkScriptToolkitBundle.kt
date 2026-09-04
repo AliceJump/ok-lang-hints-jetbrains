@@ -1,14 +1,14 @@
-package com.alicejump.oklanghints
+package com.alicejump.okscripttoolkit
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.Nls
 import org.jetbrains.annotations.PropertyKey
 
-private const val BUNDLE = "messages.OkLangHintsBundle"
+private const val BUNDLE = "messages.OkScriptToolkitBundle"
 
-class OkLangHintsBundle private constructor() : DynamicBundle(BUNDLE) {
+class OkScriptToolkitBundle private constructor() : DynamicBundle(BUNDLE) {
     companion object {
-        private val INSTANCE = OkLangHintsBundle()
+        private val INSTANCE = OkScriptToolkitBundle()
 
         @JvmStatic
         @Nls

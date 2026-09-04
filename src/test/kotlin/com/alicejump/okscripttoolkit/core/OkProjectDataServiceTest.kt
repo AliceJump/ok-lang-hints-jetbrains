@@ -1,4 +1,4 @@
-package com.alicejump.oklanghints.core
+package com.alicejump.okscripttoolkit.core
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

@@ -1,10 +1,10 @@
-package com.alicejump.oklanghints.editor
+package com.alicejump.okscripttoolkit.editor
 
-import com.alicejump.oklanghints.core.EffectEntry
-import com.alicejump.oklanghints.core.FeatureTemplate
-import com.alicejump.oklanghints.core.LangEntry
-import com.alicejump.oklanghints.core.OkProjectDataService
-import com.alicejump.oklanghints.settings.OkLangHintsSettings
+import com.alicejump.okscripttoolkit.core.EffectEntry
+import com.alicejump.okscripttoolkit.core.FeatureTemplate
+import com.alicejump.okscripttoolkit.core.LangEntry
+import com.alicejump.okscripttoolkit.core.OkProjectDataService
+import com.alicejump.okscripttoolkit.settings.OkScriptToolkitSettings
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.Project
@@ -68,7 +68,7 @@ object OkEditorSupport {
             }
         }
 
-        val aliases = OkLangHintsSettings.getInstance(project).featureAliases()
+        val aliases = OkScriptToolkitSettings.getInstance(project).featureAliases()
         if (aliases.isNotEmpty()) {
             val aliasPattern = aliases.joinToString("|") { Pattern.quote(it) }
             Pattern.compile("(?<![\\w.])(?:$aliasPattern)\\.([A-Za-z0-9_]+)").matcher(text).run {
@@ -112,7 +112,7 @@ object OkEditorSupport {
         Regex("self\\.(?:ocr|wait_ocr|wait_click_ocr|find_boxes)\\([^)]*?(?:re\\.compile\\s*\\(\\s*|match\\s*=\\s*)r?['\"]([^'\"]*)$")
             .find(before)?.let { return CompletionContext(CompletionKind.OCR, it.groupValues[1]) }
 
-        for (alias in OkLangHintsSettings.getInstance(project).featureAliases()) {
+        for (alias in OkScriptToolkitSettings.getInstance(project).featureAliases()) {
             val match = Regex("(?<![\\w.])${Regex.escape(alias)}\\.([A-Za-z0-9_]*)$").find(before)
             if (match != null) return CompletionContext(CompletionKind.FEATURE, match.groupValues[1])
         }

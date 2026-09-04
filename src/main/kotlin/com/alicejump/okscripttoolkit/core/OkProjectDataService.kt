@@ -1,6 +1,6 @@
-package com.alicejump.oklanghints.core
+package com.alicejump.okscripttoolkit.core
 
-import com.alicejump.oklanghints.settings.OkLangHintsSettings
+import com.alicejump.okscripttoolkit.settings.OkScriptToolkitSettings
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.intellij.openapi.components.Service
@@ -122,14 +122,14 @@ class OkProjectDataService(private val project: Project) {
         return snapshot
     }
 
-    private fun settings(): OkLangHintsSettings = OkLangHintsSettings.getInstance(project)
+    private fun settings(): OkScriptToolkitSettings = OkScriptToolkitSettings.getInstance(project)
 
     private fun resolve(root: Path, value: String): Path {
         val candidate = Paths.get(value)
         return if (candidate.isAbsolute) candidate else root.resolve(candidate)
     }
 
-    private fun watchedFiles(root: Path, settings: OkLangHintsSettings): List<Path> {
+    private fun watchedFiles(root: Path, settings: OkScriptToolkitSettings): List<Path> {
         val files = mutableListOf<Path>()
         collectFiles(root.resolve(settings.langDirectory()), files) { it.toString().endsWith(".json", true) }
         collectFiles(root.resolve(settings.poDirectory()), files) { it.toString().endsWith(".po", true) }

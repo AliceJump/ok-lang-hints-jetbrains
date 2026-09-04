@@ -1,6 +1,6 @@
-package com.alicejump.oklanghints.editor
+package com.alicejump.okscripttoolkit.editor
 
-import com.alicejump.oklanghints.core.OkProjectDataService
+import com.alicejump.okscripttoolkit.core.OkProjectDataService
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionResultSet

@@ -1,4 +1,4 @@
-package com.alicejump.oklanghints.editor
+package com.alicejump.okscripttoolkit.editor
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.openapi.editor.Editor

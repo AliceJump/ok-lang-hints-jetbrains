@@ -1,4 +1,4 @@
-package com.alicejump.oklanghints.settings
+package com.alicejump.okscripttoolkit.settings
 
 import com.intellij.openapi.components.BaseState
 import com.intellij.openapi.components.Service
@@ -10,10 +10,10 @@ import com.intellij.openapi.project.Project
 
 @Service(Service.Level.PROJECT)
 @State(
-    name = "com.alicejump.oklanghints.settings.OkLangHintsSettings",
+    name = "com.alicejump.okscripttoolkit.settings.OkScriptToolkitSettings",
     storages = [Storage("ok-lang-hints.xml")],
 )
-class OkLangHintsSettings : SimplePersistentStateComponent<OkLangHintsSettings.SettingsState>(SettingsState()) {
+class OkScriptToolkitSettings : SimplePersistentStateComponent<OkScriptToolkitSettings.SettingsState>(SettingsState()) {
     class SettingsState : BaseState() {
         var langDirectory by string("assets/lang")
         var poDirectory by string("i18n")
@@ -32,7 +32,7 @@ class OkLangHintsSettings : SimplePersistentStateComponent<OkLangHintsSettings.S
     }
 
     companion object {
-        fun getInstance(project: Project): OkLangHintsSettings = project.service()
+        fun getInstance(project: Project): OkScriptToolkitSettings = project.service()
     }
 
     fun langDirectory(): String = state.langDirectory.orEmpty().ifBlank { "assets/lang" }

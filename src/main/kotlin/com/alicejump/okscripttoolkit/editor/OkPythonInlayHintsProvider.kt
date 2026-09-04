@@ -1,6 +1,6 @@
-package com.alicejump.oklanghints.editor
+package com.alicejump.okscripttoolkit.editor
 
-import com.alicejump.oklanghints.settings.OkLangHintsSettings
+import com.alicejump.okscripttoolkit.settings.OkScriptToolkitSettings
 import com.intellij.codeInsight.hints.declarative.InlayHintsCollector
 import com.intellij.codeInsight.hints.declarative.InlayHintsProvider
 import com.intellij.codeInsight.hints.declarative.InlayTreeSink
@@ -12,7 +12,7 @@ import com.intellij.psi.PsiFile
 
 class OkInlayHintsProvider : InlayHintsProvider {
     override fun createCollector(file: PsiFile, editor: Editor): InlayHintsCollector? {
-        if (!OkLangHintsSettings.getInstance(file.project).state.enableInlayHints) return null
+        if (!OkScriptToolkitSettings.getInstance(file.project).state.enableInlayHints) return null
         return Collector(file, editor)
     }
 

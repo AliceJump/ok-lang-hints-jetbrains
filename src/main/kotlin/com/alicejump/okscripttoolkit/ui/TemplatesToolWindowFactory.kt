@@ -1,9 +1,9 @@
-package com.alicejump.oklanghints.ui
+package com.alicejump.okscripttoolkit.ui
 
-import com.alicejump.oklanghints.OkLangHintsBundle
-import com.alicejump.oklanghints.core.FeatureTemplate
-import com.alicejump.oklanghints.core.OkProjectDataService
-import com.alicejump.oklanghints.settings.OkLangHintsSettings
+import com.alicejump.okscripttoolkit.OkScriptToolkitBundle
+import com.alicejump.okscripttoolkit.core.FeatureTemplate
+import com.alicejump.okscripttoolkit.core.OkProjectDataService
+import com.alicejump.okscripttoolkit.settings.OkScriptToolkitSettings
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.actionSystem.ActionUpdateThread
@@ -38,7 +38,7 @@ import javax.swing.ListSelectionModel
 
 class TemplatesToolWindowFactory : ToolWindowFactory, DumbAware {
     override suspend fun isApplicableAsync(project: Project): Boolean =
-        OkLangHintsSettings.getInstance(project).state.enableTemplateGallery
+        OkScriptToolkitSettings.getInstance(project).state.enableTemplateGallery
 
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val panel = TemplateGalleryPanel(project)
@@ -59,7 +59,7 @@ private class TemplateGalleryPanel(private val project: Project) : com.intellij.
 
     init {
         list.selectionMode = ListSelectionModel.SINGLE_SELECTION
-        list.emptyText.text = OkLangHintsBundle.message("gallery.empty")
+        list.emptyText.text = OkScriptToolkitBundle.message("gallery.empty")
         list.cellRenderer = SimpleListCellRenderer.create("No template") { value ->
             "${value.name}    ${value.width}×${value.height}"
         }
@@ -70,7 +70,7 @@ private class TemplateGalleryPanel(private val project: Project) : com.intellij.
                 }
             }
         })
-        search.textEditor.emptyText.text = OkLangHintsBundle.message("gallery.search")
+        search.textEditor.emptyText.text = OkScriptToolkitBundle.message("gallery.search")
         search.addDocumentListener(object : javax.swing.event.DocumentListener {
             override fun insertUpdate(e: javax.swing.event.DocumentEvent?) = applyFilter()
             override fun removeUpdate(e: javax.swing.event.DocumentEvent?) = applyFilter()
@@ -81,22 +81,22 @@ private class TemplateGalleryPanel(private val project: Project) : com.intellij.
             .setAddAction(null)
             .setRemoveAction(null)
             .disableUpDownActions()
-            .addExtraAction(object : AnAction(OkLangHintsBundle.message("gallery.insert")) {
+            .addExtraAction(object : AnAction(OkScriptToolkitBundle.message("gallery.insert")) {
                 override fun actionPerformed(e: AnActionEvent) {
                     list.selectedValue?.let(::insertExpression)
                 }
             })
-            .addExtraAction(object : AnAction(OkLangHintsBundle.message("gallery.copy")) {
+            .addExtraAction(object : AnAction(OkScriptToolkitBundle.message("gallery.copy")) {
                 override fun actionPerformed(e: AnActionEvent) {
                     list.selectedValue?.let(::copyExpression)
                 }
             })
-            .addExtraAction(object : AnAction(OkLangHintsBundle.message("gallery.open")) {
+            .addExtraAction(object : AnAction(OkScriptToolkitBundle.message("gallery.open")) {
                 override fun actionPerformed(e: AnActionEvent) {
                     list.selectedValue?.let(::openSource)
                 }
             })
-            .addExtraAction(object : AnAction(OkLangHintsBundle.message("gallery.refresh")) {
+            .addExtraAction(object : AnAction(OkScriptToolkitBundle.message("gallery.refresh")) {
                 override fun actionPerformed(e: AnActionEvent) = reload(true)
             })
             .createPanel()
@@ -124,11 +124,11 @@ private class TemplateGalleryPanel(private val project: Project) : com.intellij.
         templates
             .filter { query.isEmpty() || it.name.lowercase().contains(query) }
             .forEach(visibleModel::addElement)
-        count.text = OkLangHintsBundle.message("gallery.count", visibleModel.size)
+        count.text = OkScriptToolkitBundle.message("gallery.count", visibleModel.size)
     }
 
     private fun expression(template: FeatureTemplate): String {
-        val alias = OkLangHintsSettings.getInstance(project).featureAliases().firstOrNull() ?: "fL"
+        val alias = OkScriptToolkitSettings.getInstance(project).featureAliases().firstOrNull() ?: "fL"
         return "$alias.${template.name}"
     }
 
@@ -137,7 +137,7 @@ private class TemplateGalleryPanel(private val project: Project) : com.intellij.
         val editor = FileEditorManager.getInstance(project).selectedTextEditor
         if (editor == null || editor.virtualFile.extension?.lowercase() != "py") {
             CopyPasteManager.getInstance().setContents(StringSelection(text))
-            notify(OkLangHintsBundle.message("gallery.noEditor"), NotificationType.WARNING)
+            notify(OkScriptToolkitBundle.message("gallery.noEditor"), NotificationType.WARNING)
             return
         }
         WriteCommandAction.runWriteCommandAction(project) {
@@ -151,7 +151,7 @@ private class TemplateGalleryPanel(private val project: Project) : com.intellij.
     private fun copyExpression(template: FeatureTemplate) {
         val text = expression(template)
         CopyPasteManager.getInstance().setContents(StringSelection(text))
-        notify(OkLangHintsBundle.message("gallery.copied", text), NotificationType.INFORMATION)
+        notify(OkScriptToolkitBundle.message("gallery.copied", text), NotificationType.INFORMATION)
     }
 
     private fun openSource(template: FeatureTemplate) {
@@ -161,7 +161,7 @@ private class TemplateGalleryPanel(private val project: Project) : com.intellij.
 
     private fun notify(content: String, type: NotificationType) {
         NotificationGroupManager.getInstance()
-            .getNotificationGroup("okLangHints")
+            .getNotificationGroup("OkScriptToolkit")
             .createNotification(content, type)
             .notify(project)
     }
