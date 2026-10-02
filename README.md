@@ -1,5 +1,13 @@
 # ok-script Lang Hints for JetBrains
 
+> [!IMPORTANT]
+> **This repository is retired and will be archived.**
+>
+> Development has moved to **[AliceJump/ok-script-toolkit-jetbrains](https://github.com/AliceJump/ok-script-toolkit-jetbrains)**, coordinated with **[AliceJump/ok-script-toolkit](https://github.com/AliceJump/ok-script-toolkit)**.
+>
+> This repository is kept only for historical source and migration reference. It no longer receives feature development or publishes JetBrains Marketplace updates. The documentation below is historical.
+
+
 JetBrains Platform/PyCharm port of the VS Code extension in the repository root.
 
 ## Implemented features
