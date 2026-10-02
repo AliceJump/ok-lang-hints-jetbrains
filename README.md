@@ -1,9 +1,13 @@
 # ok-script Lang Hints for JetBrains
 
 > [!IMPORTANT]
-> **This repository is retired and will be archived.**
+> **此仓库已停止维护，准备归档。 / This repository is retired and will be archived.**
+>
+> JetBrains 版本的后续开发已迁移至 **[AliceJump/ok-script-toolkit-jetbrains](https://github.com/AliceJump/ok-script-toolkit-jetbrains)**，并与主仓 **[AliceJump/ok-script-toolkit](https://github.com/AliceJump/ok-script-toolkit)** 协同维护。
 >
 > Development has moved to **[AliceJump/ok-script-toolkit-jetbrains](https://github.com/AliceJump/ok-script-toolkit-jetbrains)**, coordinated with **[AliceJump/ok-script-toolkit](https://github.com/AliceJump/ok-script-toolkit)**.
+>
+> 本仓库仅保留历史代码与迁移记录，不再接受功能开发，也不会再发布 JetBrains Marketplace 更新。下面的内容仅作为历史参考。
 >
 > This repository is kept only for historical source and migration reference. It no longer receives feature development or publishes JetBrains Marketplace updates. The documentation below is historical.
 
